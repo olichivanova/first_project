@@ -1,0 +1,60 @@
+create database makeAnAppointment;
+use makeAnAppointment;
+drop table client;
+create table client
+(id int primary key auto_increment,
+lastname varchar(50) not null,
+firstname varchar(50) not null,
+age int check (Age >=18) not null,
+address varchar(100) not null,
+account_number int  check (account_number >= 10000000) unique not null ,
+password varchar(50)  not null
+);
+
+insert into client values
+(null, 'Балашова', 'Светлана', 45, 'г.Минск, ул.Актюбинкая д.58', 54781236, '587'),
+(null, 'Рогозин', 'Сергей', 29, 'г.Минск, ул.Рокоссовского д.6', 54787412, '587'),
+(null, 'Сверлова', 'Мария', 32, 'г.Минск, ул.Шишкова д.1', 14789632, '587'),
+(null, 'Сидоров', 'Юрий', 34, 'г.Минск, ул.Веденяпина д.6', 21474125, '587'),
+(null, 'Слипаков', 'Дмитрий', 55, 'г.Минск, ул.М.Ямская д.4', 21213654, '587'),
+(null, 'Чурасов', 'Евгений', 43, 'г.Минск, ул.Белинского д.16', 36542897, '587'),
+(null, 'Кумин', 'Сергей', 35, 'г.Минск, ул.Ошарского д.7', 78747963, '587'),
+(null, 'Воронин', 'Егор', 29, 'г.Минск, ул.Ванеева д.6', 69658321, '587'),
+(null, 'Нестеров', 'Олег', 29, 'г.Минск, ул.Нартова д.5', 89521364, '587');
+
+select * from client;
+drop table specialist;
+create table specialist
+(id_sp int primary key auto_increment,
+lastname_sp varchar(50) not null,
+firstname_sp varchar(50) not null,
+specialty varchar(50) not null
+);
+
+insert into specialist values
+(null, 'Дуванов', 'Иван' , 'ортопед'),
+(null, 'Смирнов', 'Олег', 'ортопед'),
+(null, 'Мирская', 'Алеся', 'терапевт'),
+(null, 'Миронов', 'Андрей', 'терапевт'),
+(null, 'Ломовой', 'Игорь', 'терапевт'),
+(null, 'Вовкодав', 'Наталья' , 'терапевт'),
+(null, 'Егорова', 'Алена' , 'стоматолог'),
+(null, 'Волчик', 'Анастасия' , 'стоматолог');
+
+select * from specialist;
+
+
+
+drop table appointment;
+create table appointment
+(id int primary key auto_increment,
+client_id int ,
+doctor_id int  ,
+date date,
+foreign key(client_id) references Client (id),
+foreign key (doctor_id) references Specialist (id_sp)
+);
+select * from appointment;
+insert into appointment values
+(null, 2, 4, '2021-02-05'),
+(null, 5, 1, '2021-02-06');
